@@ -98,4 +98,4 @@ For verified shell commands, filesystem boundaries, CPU/display interfaces and n
 
 ## Protected-data preservation
 
-The [temporary-root and raw-flash record](docs/raw-flash-preservation.md) documents the read-only captures of the four exposed MTD partitions, including protected app data. The six compressed-image and manifest files on Google Drive passed a remote check with zero differences. These images are not a tested firmware restore route.
+The [temporary-root and raw-flash record](docs/raw-flash-preservation.md) documents the read-only captures of the four exposed MTD partitions, including protected app data. A separate file-level archive preserves 30 selected protected files, including contacts and SMS databases and installed app packages. The raw-flash and main Drive packages passed remote checks with zero differences. These images are not a tested firmware restore route.
