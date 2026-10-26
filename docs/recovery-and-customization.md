@@ -4,7 +4,7 @@ Assessment: 2026-10-26, stock **U20a / Android 1.6 / 1.2.A.1.181**.
 
 ## Recovery is not secured
 
-The SD card archives and four exposed MTD main-area images now preserve media, readable system files, and protected app data. They are **not a complete or proven restorable phone image**: bootloader, baseband, separate boot/recovery images, NAND spare bytes, and a verified recovery procedure remain absent. See [raw-flash preservation](raw-flash-preservation.md).
+The SD card archives and four exposed MTD main-area plus spare/OOB captures now preserve media, readable system files, and protected app data. They are **not a complete or proven restorable phone image**: bootloader, baseband, separate boot/recovery images, and a verified recovery procedure remain absent. The main-area reads may have been corrected by kernel ECC. See [raw-flash preservation](raw-flash-preservation.md).
 
 There is a concrete tooling lead: [Flashtool's upstream U20 configuration](https://github.com/Androxyde/devices/blob/master/U20/U20.properties) lists `recognition=U20i,U20a,mimmi,U20`, `canflash=true`, `canfastboot=false`, and `canrecovery=true`. These are tool configuration flags, **not evidence that recovery exists on this phone or that a particular tool build will restore it**. Do not apply generic modern-Xperia fastboot instructions.
 

@@ -29,7 +29,7 @@ Compressed sizes: `sdcard.tar.gz` **757,246,902 bytes**; `system-partial.tar.gz`
 
 `system/` holds private inventory, access-limit observations, a recursive system listing, copy logs and readable `/system` files. A bulk `adb pull /system` stopped at protected `/system/etc/dbus.conf`; the subsequent per-file copy continues past failures and records each result in `pull-results.json`.
 
-**The original system-partial.tar.gz is a partial file archive, not a complete restorable firmware backup.** A later [read-only MTD capture](raw-flash-preservation.md) preserved the four exposed NAND main-area partitions, including protected app data. That capture still does not include bootloader, baseband, NAND spare bytes, or a tested restore procedure. Stock Android 1.6 predates the later `adb backup` facility.
+**The original system-partial.tar.gz is a partial file archive, not a complete restorable firmware backup.** A later [read-only MTD capture](raw-flash-preservation.md) preserved the main and spare/OOB areas of the four exposed NAND partitions, including protected app data. That capture still does not include bootloader, baseband, unexposed boot partitions, or a tested restore procedure. Stock Android 1.6 predates the later `adb backup` facility.
 
 ## Why pacman installation failed
 
@@ -47,5 +47,5 @@ The remote uses rclone's shared Google Drive OAuth client. This rclone build rep
 
 ## Later protected-data preservation
 
-The four exposed MTD partitions were captured through a temporary RAM-only root helper and read-only MTD character devices. Lossless compressed images and scope/checksum files were uploaded under `raw-flash/` on the same Drive destination. `rclone check --one-way` found **0 differences and 6 matching files** there. The four `/system` configuration files missed by the original ADB pass are in `system-root-only.tar.gz`. A separate `protected-files.tar.gz` contains 30 selected `/data` files, including contacts and SMS databases and installed app packages; this is a supplement to the live raw `userdata` image, not a full file-level `/data` archive. The revised main package passed its Drive check with **0 differences and 8 matching files**. See [raw-flash preservation](raw-flash-preservation.md) for sizes, method, and restoration limits.
+The four exposed MTD partitions were captured through a temporary RAM-only root helper and read-only MTD character devices. Main-area images, spare/OOB data, and a bad-block map were saved under `raw-flash/` on the same Drive destination. `rclone check --one-way` found **0 differences and 11 matching files** there; the revised main package also had **0 differences and 9 matching files**. The four `/system` configuration files missed by the original ADB pass are in `system-root-only.tar.gz`. A separate `protected-files.tar.gz` contains 30 selected `/data` files, including contacts and SMS databases and installed app packages; this is a supplement to the live raw `userdata` image, not a full file-level `/data` archive. See [raw-flash preservation](raw-flash-preservation.md) for sizes, method, and restoration limits.
 
