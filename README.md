@@ -47,6 +47,15 @@ Sony Ericsson's early **2010 launch specification** described **Android 1.6**, m
 
 See [hardware profile](docs/hardware-profile.md), [safe first session](docs/first-session.md), and [roadmap](docs/roadmap.md).
 
+Related reference: [iFixit E10i teardown notes](docs/related-teardown.md). This covers the X10 Mini, **not** this U20a mini pro; its specifications and disassembly steps are not verified for our handset.
+
+### USB connection verified — 2026-10-25
+
+- **USER-OBSERVED:** The original cable only charged the phone. After changing cables, the USB notification appeared; selecting **Mount** exposed a folder on the computer. USB debugging was also enabled.
+- **HOST-OBSERVED:** `lsusb` now reports `0fce:2138 Sony Ericsson Mobile Communications AB Xperia X10 mini pro (Debug)`.
+- **INTERPRETATION:** Changing the cable resolved the observed connection problem. The original cable may lack working data conductors; its exact fault has not been tested.
+- **VERIFIED (2026-10-26):** Standalone ADB installed; non-root shell works. See the [backup session](docs/backup-session.md) for measured memory, partition sizes, preservation results and internal-backup limits.
+
 ## Quick start (Arch Linux host)
 
 Install the Android debug bridge:
@@ -63,7 +72,7 @@ adb devices
 adb shell getprop ro.product.model
 adb shell getprop ro.build.version.release
 adb shell getprop ro.build.display.id
-adb shell uname -a
+adb shell cat /proc/version
 adb shell cat /proc/meminfo
 ```
 
@@ -78,3 +87,9 @@ No part of the quick start requires root, a factory reset, network access, or fl
 - [Android Debug Bridge documentation](https://developer.android.com/tools/adb)
 
 Provenance convention: **OBSERVED** means read from the actual phone; **PUBLISHED** means manufacturer/product documentation; **PLANNED** means untested experiments.
+
+For verified shell commands, filesystem boundaries, CPU/display interfaces and native/Dalvik programming paths, see the [exploration guide](docs/exploration.md).
+
+**Experiments verified (2026-10-26):** A [1,048-byte native ARMv6 C program](experiments/hello-native/README.md) ran from `/data/local/tmp` with exit status 0. A [terminal app on the phone](docs/on-device-terminal.md) was installed and launched with a local shell. The exploration guide also explains why a few MiB of `MemFree` does not mean that is the phone's total usable RAM.
+
+**Terminal code and build instructions:** [apps/terminal/](apps/terminal/README.md), including the pinned upstream source, larger-font customization and `>_` icon.

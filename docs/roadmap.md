@@ -1,5 +1,13 @@
 # Mero Xperia — experiment roadmap
 
+## Verified milestone status — 2026-10-26
+
+- **XPR-001:** media preservation complete: SD file copy and partial system archive stored locally and on Google Drive, with four uploaded files hash-checked. A complete internal/boot restore image remains unavailable.
+- **XPR-002:** non-root ADB shell verified; kernel/ABI/memory/storage findings documented. This firmware lacks `uname`; `/proc/version` provides kernel evidence.
+- **XPR-003:** first freestanding ARMv6 C executable verified on the phone (greeting, exit 0, transfer round-trip). libc-based C and compatible DEX builds remain future experiments.
+- **XPR-004:** local terminal tested by the user; source checkout and font/icon customization build added under `apps/terminal/`. Network client/service integration remains pending.
+
+
 Project target: a **tiny offline-first Linux/Android 1.6 handheld** that teaches embedded system internals and ultimately becomes a keyboard-driven interface to personal lab services. Each milestone has an explicit evidence gate.
 
 ## XPR-001 · Preserve the time capsule (P0)
