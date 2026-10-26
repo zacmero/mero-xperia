@@ -93,3 +93,5 @@ For verified shell commands, filesystem boundaries, CPU/display interfaces and n
 **Experiments verified (2026-10-26):** A [1,048-byte native ARMv6 C program](experiments/hello-native/README.md) ran from `/data/local/tmp` with exit status 0. A [terminal app on the phone](docs/on-device-terminal.md) was installed and launched with a local shell. The exploration guide also explains why a few MiB of `MemFree` does not mean that is the phone's total usable RAM.
 
 **Terminal code and build instructions:** [apps/terminal/](apps/terminal/README.md), including the pinned upstream source, larger-font customization and `>_` icon.
+
+**Bluetooth verified (2026-10-26):** legacy-PIN pairing and a PNG transfer succeeded; the received image matched the original bytes. See [Bluetooth findings](docs/bluetooth.md). **Firmware recovery is not secured**; see [recovery readiness and appearance customization](docs/recovery-and-customization.md) before considering protected OS changes.

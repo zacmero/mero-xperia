@@ -2,6 +2,9 @@
 
 ## Verified milestone status — 2026-10-26
 
+- **Connectivity follow-up:** Bluetooth pairing and PNG receipt verified with a byte-for-byte round-trip comparison; text-file receipt was rejected. See [Bluetooth findings](bluetooth.md).
+- **Recovery gate:** not satisfied. [Recovery readiness](recovery-and-customization.md) records the U20 tool-support lead, missing restore artifacts and app-level cosmetic alternatives.
+
 - **XPR-001:** media preservation complete: SD file copy and partial system archive stored locally and on Google Drive, with four uploaded files hash-checked. A complete internal/boot restore image remains unavailable.
 - **XPR-002:** non-root ADB shell verified; kernel/ABI/memory/storage findings documented. This firmware lacks `uname`; `/proc/version` provides kernel evidence.
 - **XPR-003:** first freestanding ARMv6 C executable verified on the phone (greeting, exit 0, transfer round-trip). libc-based C and compatible DEX builds remain future experiments.
