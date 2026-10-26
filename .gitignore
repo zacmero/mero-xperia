@@ -1,0 +1,24 @@
+# Private device data, raw diagnostics and archive copies
+data/
+captures/
+backups/
+dumps/
+private/
+local/
+*.ab
+*.img
+*.bin
+*.dump
+*.log
+*.sqlite
+*.sqlite3
+
+# Editor/system/build output
+.DS_Store
+.idea/
+.vscode/
+__pycache__/
+*.pyc
+build/
+dist/
+out/
