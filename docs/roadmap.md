@@ -3,12 +3,20 @@
 ## Verified milestone status — 2026-10-26
 
 - **Connectivity follow-up:** Bluetooth pairing and PNG receipt verified with a byte-for-byte round-trip comparison; text-file receipt was rejected. See [Bluetooth findings](bluetooth.md).
-- **Recovery gate:** not satisfied. [Recovery readiness](recovery-and-customization.md) records the U20 tool-support lead, missing restore artifacts and app-level cosmetic alternatives.
+- **Recovery gate:** not satisfied. [Recovery readiness](recovery-and-customization.md) records the U20 tool-support lead, missing bootloader/baseband images, and the untested restore path.
 
-- **XPR-001:** media preservation complete: SD file copy and partial system archive stored locally and on Google Drive, with four uploaded files hash-checked. A complete internal/boot restore image remains unavailable.
-- **XPR-002:** non-root ADB shell verified; kernel/ABI/memory/storage findings documented. This firmware lacks `uname`; `/proc/version` provides kernel evidence.
+- **XPR-001:** media, the four exposed MTD main-area partitions, four protected system files, and 30 selected protected data files are stored locally and on Google Drive. The main and raw-flash packages passed remote checks. A complete, proven firmware restore remains unavailable.
+- **XPR-002:** normal ADB shell and a temporary RAM-only root helper verified; kernel/ABI/memory/storage findings documented. This firmware lacks `uname`; `/proc/version` provides kernel evidence.
 - **XPR-003:** first freestanding ARMv6 C executable verified on the phone (greeting, exit 0, transfer round-trip). libc-based C and compatible DEX builds remain future experiments.
 - **XPR-004:** local terminal tested by the user; source checkout and font/icon customization build added under `apps/terminal/`. Network client/service integration remains pending.
+
+## Next sequence
+
+1. Rehearse recovery **off the phone**: extract the archives into a scratch directory, inspect the saved databases and apps, and determine how to read the YAFFS2 main-area images. Keep original backups immutable.
+2. Find a trustworthy U20a stock firmware package for the exact variant/build, record its origin and hashes, and identify a compatible flash tool and loader. The upstream U20 configuration is only a tooling lead.
+3. Test flash-mode entry and host USB detection without issuing a write. Document the exit path, expected wipe effects, and any untested steps before replacing Sony framework resources.
+4. Meanwhile, use the installed terminal and temporary root shell for read-only system experiments. Prototype black/grey colors in a separate app or launcher; this will not recolor Sony's stock menus.
+5. After the recovery gate is met, make one reversible framework-resource change at a time, with the original APK, permissions, and rollback procedure documented before installing it.
 
 
 Project target: a **tiny offline-first Linux/Android 1.6 handheld** that teaches embedded system internals and ultimately becomes a keyboard-driven interface to personal lab services. Each milestone has an explicit evidence gate.
