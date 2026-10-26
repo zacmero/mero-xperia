@@ -29,6 +29,18 @@ No rooting, bootloader unlocking, recovery installation, firmware flashing or `/
 
 The scope of any stock theme option on this exact firmware remains unverified. A sensible next cosmetic experiment is an app-level home screen while retaining the stock launcher. Global system recoloring remains deferred until recovery readiness improves.
 
+### Stock menu inspection — 2026-10-26
+
+The user requested black/grey system menus. We decoded the backed-up `framework-res.apk`, `Settings.apk`, `SEMCSettings.apk`, `HomeScreen.apk` and `CustomizationProvider.apk` for inspection under ignored `build/theme-inspect/`. No replacement APK was built or installed.
+
+- Framework `Theme` sets `windowBackground` to `@drawable/semc_bg` and `panelBackground` to `@drawable/menu_background`.
+- Visual inspection of `res/drawable-ldpi/semc_bg.png` confirms the blue Sony gradient/wave background. Other density/orientation versions also exist. Menu/panel assets include nine-patch PNGs, whose stretch/padding metadata would need preservation in a future modification.
+- Framework `Theme.Black` exists and sets a black window background, but it is an app-selectable style, not evidence of a user-facing global theme switch.
+- The inspected default strings and activity declarations expose wallpaper selection in HomeScreen, but no theme/appearance selector was found in those packages. This inspection does not prove that no hidden vendor setting exists anywhere.
+- The live `/system/framework/framework-res.apk` is owned by root, mode `644`; `/system` remains mounted read-only. ADB is UID 2000 and no `su` executable exists at `/system/bin/su` or `/system/xbin/su`. Mounting the SD card over USB does not grant permission to replace framework files.
+
+**Outcome:** stock menus were not recolored. The identified resources belong to the protected Android framework. A framework modification would require additional privileged access and a verified model-correct recovery route; neither is established. This is different from editing an ordinary app like Mero Terminal.
+
 ## Sources and limits
 
 - [Existing backup scope](backup-session.md): measured preservation and access gaps.
