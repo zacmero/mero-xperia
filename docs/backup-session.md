@@ -29,7 +29,7 @@ Compressed sizes: `sdcard.tar.gz` **757,246,902 bytes**; `system-partial.tar.gz`
 
 `system/` holds private inventory, access-limit observations, a recursive system listing, copy logs and readable `/system` files. A bulk `adb pull /system` stopped at protected `/system/etc/dbus.conf`; the subsequent per-file copy continues past failures and records each result in `pull-results.json`.
 
-**This is a partial file archive, not a complete restorable firmware or phone backup.** ADB cannot read raw flash devices as the normal shell. Protected application data (including contacts databases) and `/data/app` are inaccessible. Boot/recovery images and a full internal-data backup have not been obtained. Stock Android 1.6 also predates the later `adb backup` facility. No rooting, unlocking, flashing or reset was performed.
+**The original system-partial.tar.gz is a partial file archive, not a complete restorable firmware backup.** A later [read-only MTD capture](raw-flash-preservation.md) preserved the four exposed NAND main-area partitions, including protected app data. That capture still does not include bootloader, baseband, NAND spare bytes, or a tested restore procedure. Stock Android 1.6 predates the later `adb backup` facility.
 
 ## Why pacman installation failed
 
@@ -44,4 +44,8 @@ Remote: `xperia-drive:`. Destination: `mero-xperia/backups/xperia-2026-10-26/`. 
 **VERIFIED:** All four final files uploaded successfully: `sdcard.tar.gz`, `system-partial.tar.gz`, `BACKUP-SCOPE.txt`, and `SHA256SUMS`. `rclone check --one-way` against the local upload package exited 0 and reported **4/4 matching files**, using sizes and the common content hash. The private report is `backups/xperia-2026-10-26/drive-verify.txt`. This checks the final package; it does not validate any incomplete staging folder or demonstrate a successful phone restore.
 
 The remote uses rclone's shared Google Drive OAuth client. This rclone build reports that client is being retired during 2026; current authorization and this upload succeeded. A personal OAuth client may be needed for future access.
+
+## Later protected-data preservation
+
+The four exposed MTD partitions were captured through a temporary RAM-only root helper and read-only MTD character devices. Lossless compressed images and scope/checksum files were uploaded under `raw-flash/` on the same Drive destination. `rclone check --one-way` found **0 differences and 6 matching files** there. The four `/system` configuration files missed by the original ADB pass are in `system-root-only.tar.gz`; the revised top-level package and manifest also passed a remote check with **0 differences**. See [raw-flash preservation](raw-flash-preservation.md) for sizes, method, and restoration limits.
 

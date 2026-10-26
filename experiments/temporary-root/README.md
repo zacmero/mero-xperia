@@ -1,0 +1,7 @@
+# Temporary root helper for the U20a lab phone
+
+`root-helper.c` is the source of the RAM-only helper used for the read-only backup described in [raw-flash-preservation.md](../../docs/raw-flash-preservation.md). It assumes the stock kernel hotplug value is `/sbin/hotplug` and the ADB shell UID/GID is 2000. It refuses to arm if the baseline differs. Activation restores the stock hotplug path before granting the helper setuid root permissions to the ADB shell group. No `/system` file is modified. A reboot removes the tmpfs helper.
+
+The compiled ARM binary and experimental inputs stay under ignored `build/` and `local/`. The source was compiled as a freestanding ARMv6 EABI executable using `clang` and `rust-lld`; the tracked source recompiles with `-Wall -Wextra -Werror`. The tested phone returned root through the helper and then reported `/sbin/hotplug` as the current kernel helper.
+
+This is an experiment on the owned handset, not a firmware restore method. The original [Exploid research](https://c-skills.blogspot.com/2010/07/android-trickery.html) describes the old init firmware-event vulnerability. Do not use the original exploit unchanged here: its published implementation writes under `/system` and alters the kernel hotplug setting persistently, which was unnecessary for preservation.

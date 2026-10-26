@@ -95,3 +95,7 @@ For verified shell commands, filesystem boundaries, CPU/display interfaces and n
 **Terminal code and build instructions:** [apps/terminal/](apps/terminal/README.md), including the pinned upstream source, larger-font customization and `>_` icon.
 
 **Bluetooth verified (2026-10-26):** legacy-PIN pairing and a PNG transfer succeeded; the received image matched the original bytes. See [Bluetooth findings](docs/bluetooth.md). **Firmware recovery is not secured**; see [recovery readiness and appearance customization](docs/recovery-and-customization.md) before considering protected OS changes.
+
+## Protected-data preservation
+
+The [temporary-root and raw-flash record](docs/raw-flash-preservation.md) documents the read-only captures of the four exposed MTD partitions, including protected app data. The six compressed-image and manifest files on Google Drive passed a remote check with zero differences. These images are not a tested firmware restore route.
