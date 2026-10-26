@@ -1,6 +1,6 @@
 # Terminal on the phone — installed and launched
 
-The user subsequently confirmed the terminal works on the handset. The repo now includes the [source checkout, font/icon customizations and build/install instructions](../apps/terminal/README.md). **Mero Terminal** is the customized app; the original terminal described below is retained as a fallback.
+The user subsequently confirmed the terminal works on the handset. The repo now includes the [source checkout, font/icon customizations and build/install instructions](../apps/terminal/README.md). **Mero Terminal** is the customized app. The original `jackpal.androidterm` app described below was subsequently uninstalled at the user's request; Mero Terminal remains installed.
 
 The customized app was installed and launched on 2026-10-26, with its child shell verified under `app_91`. The user confirmed the new 20-point font is comfortable. Its launcher icon is the green `>_` terminal glyph; use **Mero Terminal** to open this customized version.
 
@@ -21,4 +21,11 @@ Open the terminal app from the phone's launcher and use the slide-out keyboard. 
 
 The terminal app's shell runs under its app UID, **not** ADB's UID 2000. Permissions differ; neither is root. The app does not add missing command-line tools, so `whoami`, `uname`, desktop GNU utilities and a compiler do not become available just by installing it.
 
-The native experiment currently has mode `700` and belongs to the ADB shell user, so the terminal app cannot execute that file as installed. Sharing the experiment with the app would require deliberately adjusting that experiment's directory/file permissions or copying it into app-owned storage; no protected-directory permissions were changed.
+The [native experiment](../experiments/hello-native/README.md#run-directly-on-the-phone) is now shared for local execution: only its named directory and executable were changed to mode `755`. No protected-directory permissions were changed.
+
+## What runs where
+
+- **Phone:** an existing Android terminal app, customized for this lab. Its UI/emulator is Java with native C/C++/JNI components, and it launches the phone's `/system/bin/sh`.
+- **Host Docker container:** apktool, APK alignment and signing tools. Docker is not part of the app and was not installed on the phone.
+- **Host Python:** `apps/terminal/customize.py` changes the APK's resources, package/action identifiers and icon during the build. Python is not required on the phone.
+- **Build method:** adapt the author's released APK while preserving its native libraries, rather than compile the complete terminal implementation from scratch. The pinned upstream source is present for study; the repo contains our complete customization/build code.

@@ -1,6 +1,6 @@
 # Mero Terminal for the Xperia
 
-The customized terminal uses a **20-point default font** (upstream: 10) and a high-contrast `>_` launcher icon. It installs as **Mero Terminal**, package `org.mero.xperia.terminal`, alongside the original `jackpal.androidterm` app. Existing terminal data is preserved.
+The customized terminal uses a **20-point default font** (upstream: 10) and a high-contrast `>_` launcher icon. It installs as **Mero Terminal**, package `org.mero.xperia.terminal`. It was initially installed alongside the original `jackpal.androidterm` app; that original app has since been uninstalled at the user's request.
 
 **Verified on the U20a (2026-10-26):** build/signature verification passed; installation succeeded; Android reported the custom activity focused and a child `/system/bin/sh` running under the new app UID. The user confirmed the 20-point size is comfortable and should be retained.
 
@@ -32,4 +32,4 @@ Open **Mero Terminal**, with the green `>_` icon. Its shell commands run under i
 
 Build output and decoded APK files live in ignored `build/terminal/`. Signing keys/password live in ignored `local/terminal/`, restricted to the local user. Preserve that signing key privately to install future updates over this app; losing it means the app cannot be updated in place. Nothing in those directories is pushed to Git. The signing password is generated locally and is never printed.
 
-Signing uses the v1/JAR scheme needed by Android 1.6. The original app remains available as a fallback. This overlay does not grant root or add missing Linux commands.
+Signing uses the v1/JAR scheme needed by Android 1.6. The author's original APK remains in ignored `local/apks/Term.apk` if reinstallation is ever needed. This overlay does not grant root or add missing Linux commands. Docker and Python are host build tools, not software running inside the phone app.

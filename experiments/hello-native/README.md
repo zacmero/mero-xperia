@@ -29,7 +29,8 @@ These commands write only the named experiment directory. If repeating this sess
 ```bash
 rtk adb shell mkdir /data/local/tmp/mero-xperia-hello-20261026
 rtk adb push build/hello-native/hello-xperia /data/local/tmp/mero-xperia-hello-20261026/hello-xperia
-rtk adb shell chmod 700 /data/local/tmp/mero-xperia-hello-20261026/hello-xperia
+rtk adb shell chmod 755 /data/local/tmp/mero-xperia-hello-20261026
+rtk adb shell chmod 755 /data/local/tmp/mero-xperia-hello-20261026/hello-xperia
 rtk adb shell '/data/local/tmp/mero-xperia-hello-20261026/hello-xperia; echo PROGRAM_EXIT=$?'
 ```
 
@@ -41,3 +42,17 @@ PROGRAM_EXIT=0
 ```
 
 The explicit marker captures the phone-side exit status; a successful host ADB invocation alone is insufficient evidence on this old daemon. Private output: `captures/experiment-2026-10-26/hello-result.txt`.
+
+## Run directly on the phone
+
+Open **Mero Terminal** and type the following there (without RTK, which is a host-only tool):
+
+```sh
+cd /data/local/tmp/mero-xperia-hello-20261026
+./hello-xperia
+echo $?
+```
+
+Expect the greeting followed by `0`. The program is already installed; compiling again or connecting USB is unnecessary just to run it. It is a shell executable, so it has no launcher icon of its own.
+
+The experiment directory and executable now have mode `755`: other app users can traverse/read/execute this experiment, but only its owner can modify it. Previously mode `700` restricted execution to ADB's shell UID. No parent or protected system-directory permissions were changed. After this permission update the binary was re-run through ADB with the expected greeting and exit 0; the user can now try the local-terminal commands above.
