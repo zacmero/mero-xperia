@@ -4,6 +4,15 @@
 
 ## A. Observed directly from this device
 
+### ADB observations — 2026-10-26
+
+- ADB shell access verified as UID `2000` (`shell`), without root.
+- ABI: `armeabi`; `/proc/cpuinfo` reports ARMv6-compatible processor rev 5, architecture `6TEJ`, features `swp half thumb fastmult vfp edsp java`. These are CPU feature flags, not a claim that a standalone Java runtime is installed.
+- Kernel-visible RAM: `MemTotal: 169672 kB` (about 165.7 MiB); this does not establish physical RAM capacity.
+- `/proc/mtd` exposes system 206 MiB, cache 50 MiB, appslog 256 KiB and userdata 211.75 MiB. Raw devices are root-only.
+- `/proc/version` confirms Linux `2.6.29`, GCC `4.2.1`, build `#1 PREEMPT Fri Jul 2 13:25:20 2010`.
+- See the [backup session](backup-session.md) for private archive locations, verification and access limits.
+
 | Property | Value | Evidence |
 | --- | --- | --- |
 | Brand / family | Sony Ericsson Xperia X10 mini pro | Phone and original packaging shown |

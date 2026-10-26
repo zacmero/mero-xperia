@@ -18,7 +18,7 @@ for prop in ro.product.model ro.product.device ro.build.version.release ro.build
 done
 
 printf '%s\n' '== kernel =='
-adb shell uname -a
+adb shell cat /proc/version
 
 printf '%s\n' '== memory summary =='
 adb shell cat /proc/meminfo | head -n 8

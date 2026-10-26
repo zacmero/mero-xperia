@@ -13,6 +13,12 @@ Goal: **preserve personal data and identify the actual running environment**. No
 
 ## 1 — Prepare Arch Linux host
 
+**Connection result (2026-10-25):** Replacing the cable made the phone's USB notification appear. The user selected **Mount** and could see a folder on the host; USB debugging was enabled. Linux independently detected `0fce:2138` as `Xperia X10 mini pro (Debug)`. At that point ADB was not installed. On 2026-10-26 standalone ADB and non-root shell access were verified; see the [backup session](backup-session.md).
+
+For this handset, check the notification bar after connecting a data cable and choose **Mount** to share the microSD as USB mass storage. The settings option **Unmount SD card** is not needed to initiate this connection. Storage sharing and ADB shell access are separate; mounting the card is not an ADB prerequisite.
+
+If the phone only charges, first check `rtk lsusb`: if there is no phone entry, test another known data cable and a direct host port before troubleshooting mounting or ADB permissions.
+
 ```bash
 sudo pacman -S android-tools
 adb version
@@ -40,7 +46,7 @@ adb shell getprop ro.product.model
 adb shell getprop ro.build.version.release
 adb shell getprop ro.build.display.id
 adb shell getprop ro.product.cpu.abi
-adb shell uname -a
+adb shell cat /proc/version
 adb shell cat /proc/meminfo
 adb shell df
 adb shell mount
